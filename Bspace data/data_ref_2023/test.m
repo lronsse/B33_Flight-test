@@ -1,0 +1,1 @@
+S = load('data.mat')
