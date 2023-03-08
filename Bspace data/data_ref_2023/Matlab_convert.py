@@ -1,14 +1,26 @@
 import pandas as pd
-from scipy.io import loadmat
+import mat4py as mp
 
 
-annots = loadmat('data.mat')
+annots = mp.loadmat('data.mat')
+#print(annots['flightdata'].keys())
+keys = []
+with open('Dspace Parameters.txt', 'r') as t:
+    for i in t:
+        i = i.strip('\n')
+        keys.append(i)
+print(annots['flightdata']['vane_AOA']['data'])
+
 '''
-con_list = [[element for element in upperElement] for upperElement in annots['obj_contour']]
-newData = list(zip(con_list[0], con_list[1]))
-columns = ['obj_contour_x', 'obj_contour_y']
-df = pd.DataFrame(newData, columns=columns)'''
+data_list = []
+units_list = []
+description_list = []
 
-print(sorted(annots.keys()))
-print(annots)
-#print(annots['__header__'])
+for i in keys:
+    try:
+        data_list.append(annots['flightdata'][i]['data'])
+        description_list.append(annots['flightdata'][i]['description'])
+        units_list.append(annots['flightdata'][i]['units'])
+    except:
+        print(f'broke at i = {i}')
+        pass'''
